@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Paper from '@material-ui/core/Paper';
@@ -40,108 +40,85 @@ const styles = ({ breakpoints, palette, spacing }: Theme) => createStyles({
 interface Props extends WithStyles<typeof styles> {
 }
 
-interface State {
-    keyword: string;
-    begin: string;
-    end: string;
-    timeZone: string
-}
+const _Main: React.FC<Props> = (props) => {
+    const now = moment();
+    const oneHourLater = moment(now).add(1, "hour");
+    const classes = props.classes;
 
-class _Main extends React.Component<Props, State> {
+    const [keyword, setKeyword] = useState("");
+    const [begin, setBegin] = useState(datetimeToComponent(now));
+    const [end, setEnd] = useState(datetimeToComponent(oneHourLater));
+    const [timeZone, setTimeZone] = useState("JST");
 
-    constructor(props: Props) {
-        super(props);
-
-        const now = moment();
-        const oneHourLater = moment(now).add(1, "hour");
-
-        this.state = {
-            keyword: "",
-            begin: datetimeToComponent(now),
-            end: datetimeToComponent(oneHourLater),
-            timeZone: "JST",
-        };
-
-        this.onKeywordChange = this.onKeywordChange.bind(this);
-        this.onBeginChange = this.onBeginChange.bind(this);
-        this.onEndChange = this.onEndChange.bind(this);
-        this.onTimeZoneChange = this.onTimeZoneChange.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    function onKeywordChange(ev: React.ChangeEvent<HTMLInputElement>) {
+        setKeyword(ev.target.value);
     }
 
-    onKeywordChange(ev: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({ keyword: ev.target.value });
-    }
-
-    onBeginChange(ev: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({ begin: ev.target.value });
+    function onBeginChange(ev: React.ChangeEvent<HTMLInputElement>) {
+        setBegin(ev.target.value);
         const oneHourLater = moment(ev.target.value).add(1, "hour");
-        this.setState({ end: datetimeToComponent(oneHourLater) });
+        setEnd(datetimeToComponent(oneHourLater));
     }
 
-    onEndChange(ev: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({ end: ev.target.value });
+    function onEndChange(ev: React.ChangeEvent<HTMLInputElement>) {
+        setEnd(ev.target.value);
     }
 
-    onTimeZoneChange(ev: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({ timeZone: ev.target.value });
+    function onTimeZoneChange(ev: React.ChangeEvent<HTMLInputElement>) {
+        setTimeZone(ev.target.value);
     }
 
-    onClick(ev: React.MouseEvent<HTMLElement, MouseEvent>) {
-        this.searchAndOpen();
+    function onClick(ev: React.MouseEvent<HTMLElement, MouseEvent>) {
+        searchAndOpen();
         ev.preventDefault();
     }
 
-    handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
-        this.searchAndOpen();
+    function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
+        searchAndOpen();
         ev.preventDefault();
     }
 
-    searchAndOpen() {
-        const keywordQuery = this.state.keyword;
+    function searchAndOpen() {
+        const keywordQuery = keyword;
 
-        const beginDate = moment.utc(this.state.begin);
-        const beginQuery = `since:${datetimeToQuery(beginDate, this.state.timeZone)}`;
+        const beginDate = moment.utc(begin);
+        const beginQuery = `since:${datetimeToQuery(beginDate, timeZone)}`;
 
-        const endDate = moment.utc(this.state.end);
-        const endQuery = `until:${datetimeToQuery(endDate, this.state.timeZone)}`;
+        const endDate = moment.utc(end);
+        const endQuery = `until:${datetimeToQuery(endDate, timeZone)}`;
 
         const query = encodeURIComponent(`${keywordQuery} ${beginQuery} ${endQuery}`);
         window.open("https://twitter.com/search?q=" + query);
     }
 
-    render() {
-        const classes = this.props.classes;
-        return (
-            <div className={classes.root}>
-                <Typography variant={"h4"} component={"h1"}>
-                    <a href="/" className={classes.title} >Twitter Time Search</a>
-                </Typography>
-                <Paper className={classes.paper}>
-                    <form method={"post"} onSubmit={this.handleSubmit}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <KeywordText value={this.state.keyword} onChange={this.onKeywordChange} />
-                            </Grid>
-                            <Grid item xs={12} sm={5}>
-                                <BeginDateTime value={this.state.begin} onChange={this.onBeginChange} />
-                            </Grid>
-                            <Grid item xs={12} sm={5}>
-                                <EndDateTime value={this.state.end} onChange={this.onEndChange} />
-                            </Grid>
-                            <Grid item xs={12} sm={2}>
-                                <TimeZone value={this.state.timeZone} onChange={this.onTimeZoneChange} />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button type={"submit"} variant={"contained"} color={"primary"} onClick={this.onClick}>Search</Button>
-                            </Grid>
+    return (
+        <div className={classes.root}>
+            <Typography variant={"h4"} component={"h1"}>
+                <a href="/" className={classes.title} >Twitter Time Search</a>
+            </Typography>
+            <Paper className={classes.paper}>
+                <form method={"post"} onSubmit={handleSubmit}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <KeywordText value={keyword} onChange={onKeywordChange} />
                         </Grid>
-                    </form>
-                </Paper>
-            </div>
-        );
-    }
+                        <Grid item xs={12} sm={5}>
+                            <BeginDateTime value={begin} onChange={onBeginChange} />
+                        </Grid>
+                        <Grid item xs={12} sm={5}>
+                            <EndDateTime value={end} onChange={onEndChange} />
+                        </Grid>
+                        <Grid item xs={12} sm={2}>
+                            <TimeZone value={timeZone} onChange={onTimeZoneChange} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button type={"submit"} variant={"contained"} color={"primary"} onClick={onClick}>Search</Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Paper>
+        </div>
+    );
 }
 
 export const Main = withStyles(styles)(_Main);
