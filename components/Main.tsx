@@ -8,8 +8,8 @@ import { BeginDateTime } from "./BeginDateTime";
 import { EndDateTime } from "./EndDateTime";
 import { KeywordText } from "./KeywordText";
 import { TimeZone } from "./TimeZone";
-import { datetimeToComponent, datetimeToQuery } from "../lib";
-import moment from "moment";
+import { datetimeToQuery } from "../lib";
+import moment, { Moment } from "moment-timezone";
 import Typography from '@material-ui/core/Typography';
 
 const styles = ({ breakpoints, palette, spacing }: Theme) => createStyles({
@@ -41,51 +41,54 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const _Main: React.FC<Props> = (props) => {
-    const now = moment();
-    const oneHourLater = moment(now).add(1, "hour");
+    const now = moment().tz("Asia/Tokyo");
+    const oneHourLater = moment(now).tz("Asia/Tokyo").add(1, "hour");
     const classes = props.classes;
 
     const [keyword, setKeyword] = useState("");
-    const [begin, setBegin] = useState(datetimeToComponent(now));
-    const [end, setEnd] = useState(datetimeToComponent(oneHourLater));
+    const [begin, setBegin] = useState(now);
+    const [end, setEnd] = useState(oneHourLater);
     const [timeZone, setTimeZone] = useState("JST");
 
-    function onKeywordChange(ev: React.ChangeEvent<HTMLInputElement>) {
+    const onKeywordChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(ev.target.value);
     }
 
-    function onBeginChange(ev: React.ChangeEvent<HTMLInputElement>) {
-        setBegin(ev.target.value);
-        const oneHourLater = moment(ev.target.value).add(1, "hour");
-        setEnd(datetimeToComponent(oneHourLater));
+    const onBeginChange = (date: Moment | null) => {
+        if (date === null) {
+            date = moment().tz("Asia/Tokyo");
+        }
+        setBegin(date);
+
+        const oneHourLater = moment(date).add(1, "hour");
+        setEnd(oneHourLater);
     }
 
-    function onEndChange(ev: React.ChangeEvent<HTMLInputElement>) {
-        setEnd(ev.target.value);
+    const onEndChange = (date: Moment | null) => {
+        if (date === null) {
+            date = moment().tz("Asia/Tokyo");
+        }
+        setEnd(date);
     }
 
-    function onTimeZoneChange(ev: React.ChangeEvent<HTMLInputElement>) {
+    const onTimeZoneChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setTimeZone(ev.target.value);
     }
 
-    function onClick(ev: React.MouseEvent<HTMLElement, MouseEvent>) {
+    const onClick = (ev: React.MouseEvent<HTMLElement, MouseEvent>) => {
         searchAndOpen();
         ev.preventDefault();
     }
 
-    function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
+    const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
         searchAndOpen();
         ev.preventDefault();
     }
 
-    function searchAndOpen() {
+    const searchAndOpen = () => {
         const keywordQuery = keyword;
-
-        const beginDate = moment.utc(begin);
-        const beginQuery = `since:${datetimeToQuery(beginDate, timeZone)}`;
-
-        const endDate = moment.utc(end);
-        const endQuery = `until:${datetimeToQuery(endDate, timeZone)}`;
+        const beginQuery = `since:${datetimeToQuery(begin, timeZone)}`;
+        const endQuery = `until:${datetimeToQuery(end, timeZone)}`;
 
         const query = encodeURIComponent(`${keywordQuery} ${beginQuery} ${endQuery}`);
         window.open("https://twitter.com/search?q=" + query);

@@ -1,6 +1,10 @@
 import * as React from 'react';
-import TextField from '@material-ui/core/TextField';
+import moment, { Moment } from "moment-timezone";
+import MomentUtils from '@date-io/moment'
+import { DateTimePicker, MuiPickersUtilsProvider,  } from '@material-ui/pickers'
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
+
+moment.locale("ja")
 
 const styles = createStyles({
     container: {
@@ -13,22 +17,23 @@ const styles = createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-    onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-    value: string;
+    onChange: (date: Moment | null) => void;
+    value: Moment;
 }
 
 const _BeginDateTime: React.FC<Props> = ({ classes, onChange, value}) => {
     return (
-        <TextField
-            id=""
-            label="Begin"
-            type="datetime-local"
-            value={value}
-            className={classes.beginField}
-            onChange={onChange}
-            InputLabelProps={{ shrink: true }}
-            margin="normal"
-        />
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+            <DateTimePicker
+                ampm={false}
+                className={classes.beginField}
+                format={'YYYY/MM/DD HH:mm'}
+                label="Begin"
+                margin={"normal"}
+                onChange={onChange}
+                value={value}
+            />
+        </MuiPickersUtilsProvider>
     );
 }
 
