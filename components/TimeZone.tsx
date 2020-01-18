@@ -1,5 +1,10 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import moment from "moment-timezone";
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 
 const styles = createStyles({
@@ -8,21 +13,34 @@ const styles = createStyles({
     }
 });
 
+const zoneList = moment.tz.names();
+
 interface Props extends WithStyles<typeof styles> {
-    onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (ev: React.ChangeEvent<{ value: unknown }>) => void;
     value: string;
 }
 
 const _TimeZone: React.FC<Props> = ({ classes, onChange, value }) => {
     return (
-        <TextField
-            id=""
-            label="TimeZone"
-            className={classes.timeZoneField}
-            value={value}
-            onChange={onChange}
+        <FormControl
             margin="normal"
-        />
+            className={classes.timeZoneField}
+        >
+            <InputLabel htmlFor="timezone-input">TimeZone</InputLabel>
+            <Select
+                native
+                onChange={onChange}
+                className="timezone"
+                value={value}
+                inputProps={{
+                    id: "timezone-input"
+                }}
+            >
+                {zoneList.map(name => {
+                    return <option key={name} value={name}>{name}</option>
+                })}
+            </Select>
+        </FormControl>
     );
 };
 

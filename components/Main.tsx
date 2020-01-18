@@ -41,14 +41,15 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const _Main: React.FC<Props> = (props) => {
-    const now = moment().tz("Asia/Tokyo");
-    const oneHourLater = moment(now).tz("Asia/Tokyo").add(1, "hour");
+    const [timeZone, setTimeZone] = useState("Asia/Tokyo");
+    const now = moment().tz(timeZone);
+
+    const oneHourLater = moment(now).tz(timeZone).add(1, "hour");
     const classes = props.classes;
 
     const [keyword, setKeyword] = useState("");
     const [begin, setBegin] = useState(now);
     const [end, setEnd] = useState(oneHourLater);
-    const [timeZone, setTimeZone] = useState("JST");
 
     const onKeywordChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(ev.target.value);
@@ -71,8 +72,8 @@ const _Main: React.FC<Props> = (props) => {
         setEnd(date);
     }
 
-    const onTimeZoneChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        setTimeZone(ev.target.value);
+    const onTimeZoneChange = (ev: React.ChangeEvent<{ value: unknown }>) => {
+        setTimeZone(ev.target.value as string);
     }
 
     const onClick = (ev: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -105,13 +106,13 @@ const _Main: React.FC<Props> = (props) => {
                         <Grid item xs={12}>
                             <KeywordText value={keyword} onChange={onKeywordChange} />
                         </Grid>
-                        <Grid item xs={12} sm={5}>
+                        <Grid item xs={12} sm={4}>
                             <BeginDateTime value={begin} onChange={onBeginChange} />
                         </Grid>
-                        <Grid item xs={12} sm={5}>
+                        <Grid item xs={12} sm={4}>
                             <EndDateTime value={end} onChange={onEndChange} />
                         </Grid>
-                        <Grid item xs={12} sm={2}>
+                        <Grid item xs={12} sm={4}>
                             <TimeZone value={timeZone} onChange={onTimeZoneChange} />
                         </Grid>
                         <Grid item xs={12}>
