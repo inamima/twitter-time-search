@@ -24,6 +24,6 @@ const _KeywordText: React.FC<Props> = ({ classes, onChange, value }) => {
             margin="normal"
         />
     );
-}
+};
 
 export const KeywordText = withStyles(styles)(_KeywordText);

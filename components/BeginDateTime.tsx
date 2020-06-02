@@ -4,7 +4,7 @@ import MomentUtils from '@date-io/moment'
 import { DateTimePicker, MuiPickersUtilsProvider,  } from '@material-ui/pickers'
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 
-moment.locale("ja")
+moment.locale("ja");
 
 const styles = createStyles({
     container: {
@@ -35,6 +35,6 @@ const _BeginDateTime: React.FC<Props> = ({ classes, onChange, value}) => {
             />
         </MuiPickersUtilsProvider>
     );
-}
+};
 
 export const BeginDateTime = withStyles(styles)(_BeginDateTime);

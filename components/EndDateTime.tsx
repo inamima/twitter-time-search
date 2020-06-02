@@ -4,7 +4,7 @@ import MomentUtils from '@date-io/moment'
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { DateTimePicker, MuiPickersUtilsProvider,  } from '@material-ui/pickers'
 
-moment.locale("ja")
+moment.locale("ja");
 
 const styles = createStyles({
     container: {
@@ -35,6 +35,6 @@ const _EndDateTime: React.FC<Props> = ({ classes, onChange, value}) => {
             />
         </MuiPickersUtilsProvider>
     );
-}
+};
 
 export const EndDateTime = withStyles(styles)(_EndDateTime);

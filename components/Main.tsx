@@ -53,7 +53,7 @@ const _Main: React.FC<Props> = (props) => {
 
     const onKeywordChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(ev.target.value);
-    }
+    };
 
     const onBeginChange = (date: Moment | null) => {
         if (date === null) {
@@ -63,28 +63,28 @@ const _Main: React.FC<Props> = (props) => {
 
         const oneHourLater = moment(date).add(1, "hour");
         setEnd(oneHourLater);
-    }
+    };
 
     const onEndChange = (date: Moment | null) => {
         if (date === null) {
             date = moment().tz("Asia/Tokyo");
         }
         setEnd(date);
-    }
+    };
 
     const onTimeZoneChange = (ev: React.ChangeEvent<{ value: unknown }>) => {
         setTimeZone(ev.target.value as string);
-    }
+    };
 
     const onClick = (ev: React.MouseEvent<HTMLElement, MouseEvent>) => {
         searchAndOpen();
         ev.preventDefault();
-    }
+    };
 
     const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
         searchAndOpen();
         ev.preventDefault();
-    }
+    };
 
     const searchAndOpen = () => {
         const keywordQuery = keyword;
@@ -93,7 +93,7 @@ const _Main: React.FC<Props> = (props) => {
 
         const query = encodeURIComponent(`${keywordQuery} ${beginQuery} ${endQuery}`);
         window.open("https://twitter.com/search?q=" + query);
-    }
+    };
 
     return (
         <div className={classes.root}>
@@ -123,6 +123,6 @@ const _Main: React.FC<Props> = (props) => {
             </Paper>
         </div>
     );
-}
+};
 
 export const Main = withStyles(styles)(_Main);
