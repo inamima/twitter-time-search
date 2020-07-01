@@ -4,11 +4,11 @@ import moment from "moment-timezone";
 
 describe.each([
     // Asia/Tokyo
-    [moment('2020-01-01 12:30:00'), 'Asia/Tokyo', '2020-01-01_12:30:00_JST'],
+    ['2020-01-01 12:30:00', 'Asia/Tokyo', '2020-01-01_12:30:00_JST'],
     // Amer/New_York
-    [moment('2020-01-01 12:30:00'), 'America/New_York', '2020-01-01_12:30:00_EST'],
+    ['2020-01-01 12:30:00', 'America/New_York', '2020-01-01_12:30:00_EST'],
     // Amer/New_York (daylight saving time)
-    [moment('2020-07-01 12:30:00'), 'America/New_York', '2020-07-01_12:30:00_EDT']
+    ['2020-07-01 12:30:00', 'America/New_York', '2020-07-01_12:30:00_EDT']
 ])('datetimeToQuery', (date, timezone, expected) => {
     test(`${timezone}`, () => {
         expect(lib.datetimeToQuery(date, timezone)).toBe(expected);

@@ -18,7 +18,7 @@ const styles = createStyles({
 
 interface Props extends WithStyles<typeof styles> {
     onChange: (date: Moment | null) => void;
-    value: Moment;
+    value: string;
 }
 
 const _BeginDateTime: React.FC<Props> = ({ classes, onChange, value}) => {
