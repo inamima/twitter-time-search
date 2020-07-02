@@ -1,4 +1,4 @@
-import React, {Dispatch, Reducer, ReducerAction, useEffect, useReducer} from 'react';
+import React from 'react';
 import { WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Paper from '@material-ui/core/Paper';
@@ -12,6 +12,7 @@ import { searchAndOpen } from "../lib";
 import moment, { Moment } from "moment-timezone";
 import Typography from '@material-ui/core/Typography';
 import { HistoryList } from './History';
+import { useReducerWithLocalStorage } from "../state";
 
 
 const styles = ({ breakpoints, palette, spacing }: Theme) => createStyles({
@@ -44,137 +45,13 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 
-type history = {
-    keyword: string;
-    begin: string;
-    end: string;
-    timeZone: string;
-};
-
-
-type state = {
-    histories: Array<history>;
-    keyword: string;
-    begin: string;
-    end: string;
-    timeZone: string;
-}
-
-
-interface setKeywordAction {
-    type: "setKeyword";
-    payload: {
-        keyword: string;
-    }
-}
-
-
-interface historyAppendAction {
-    type: "appendHistory";
-    payload: {
-        history: history;
-    };
-}
-
-
-interface historyDeleteAction {
-    type: "deleteHistory";
-    payload: {
-        index: number;
-    };
-}
-
-
-interface setBeginAction {
-    type: "setBegin";
-    payload: {
-        begin: string;
-    }
-}
-
-
-interface setEndAction {
-    type: "setEnd";
-    payload: {
-        end: string;
-    }
-}
-
-
-interface setTimeZoneAction {
-    type: "setTimeZone";
-    payload: {
-        timeZone: string;
-    }
-}
-
-
-export type Actions = (
-    | setKeywordAction
-    | historyAppendAction
-    | historyDeleteAction
-    | setBeginAction
-    | setEndAction
-    | setTimeZoneAction
-);
-
-
-const MAX_HISTORY = 10;
-
-
-const reducer = (state: state, action: Actions): state => {
-    switch (action.type) {
-        case "setKeyword":
-            return {...state, keyword: action.payload.keyword};
-        case "appendHistory":
-            let newHistories = [action.payload.history, ...state.histories];
-            if (newHistories.length > MAX_HISTORY) {
-                newHistories.splice(-1, 1);
-            }
-            return {...state, histories: newHistories};
-        case "deleteHistory":
-            state.histories.splice(action.payload.index, 1);
-            return {...state, histories: [...state.histories]};
-        case "setBegin":
-            return {...state, begin: action.payload.begin};
-        case "setEnd":
-            return {...state, end: action.payload.end};
-        case "setTimeZone":
-            return {...state, timeZone: action.payload.timeZone};
-    }
-};
-
-
-const useReducerWithLocalStorage = (reducer: (state: state, action: Actions) => state, initializerArg: state): [state, Dispatch<ReducerAction<Reducer<state, Actions>>>] => {
-    const localStorageKey = "histories";
-    const [state, dispatch] = useReducer(reducer, initializerArg, (initializeArg) => {
-        if (typeof localStorage !== "undefined") {
-            const item = localStorage.getItem(localStorageKey);
-            if (item) {
-                const histories: Array<history> = JSON.parse(item);
-                return { ...initializeArg, histories: histories };
-            } else {
-                return initializeArg
-            }
-        } else {
-            return initializeArg;
-        }
-    });
-
-    useEffect(() => {
-        localStorage.setItem(localStorageKey, JSON.stringify(state.histories));
-    });
-
-    return [state, dispatch]
-};
-
-
 const _Main: React.FC<Props> = (props) => {
     const timeZone = "Asia/Tokyo";
     const now = moment().tz(timeZone).toISOString();
     const oneHourLater = moment(now).tz(timeZone).add(1, "hour").toISOString();
-    const [state, dispatch] = useReducerWithLocalStorage(reducer, {
-        histories: [], keyword: "", begin: now, end: oneHourLater, timeZone: timeZone });
+    const [state, dispatch] = useReducerWithLocalStorage({
+        histories: [], keyword: "", begin: now, end: oneHourLater, timeZone: timeZone
+    });
     const classes = props.classes;
 
     const onKeywordChange = (ev: React.ChangeEvent<HTMLInputElement>) => {

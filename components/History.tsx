@@ -3,7 +3,7 @@ import {createStyles, withStyles, WithStyles} from "@material-ui/core/styles";
 import {IconButton, List, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from '@material-ui/icons/Search';
-import { Actions } from "./Main";
+import { Actions } from "../state"
 import { datetimeToText, searchAndOpen } from "../lib";
 
 
