@@ -146,18 +146,23 @@ const reducer = (state: state, action: Actions): state => {
 
 
 const useReducerWithLocalStorage = (reducer: (state: state, action: Actions) => state, initializerArg: state): [state, Dispatch<ReducerAction<Reducer<state, Actions>>>] => {
-    const localStorageKey = "twitter-time-search";
+    const localStorageKey = "histories";
     const [state, dispatch] = useReducer(reducer, initializerArg, (initializeArg) => {
         if (typeof localStorage !== "undefined") {
             const item = localStorage.getItem(localStorageKey);
-            return item ? JSON.parse(item) : initializeArg;
+            if (item) {
+                const histories: Array<history> = JSON.parse(item);
+                return { ...initializeArg, histories: histories };
+            } else {
+                return initializeArg
+            }
         } else {
             return initializeArg;
         }
     });
 
     useEffect(() => {
-        localStorage.setItem(localStorageKey, JSON.stringify(state));
+        localStorage.setItem(localStorageKey, JSON.stringify(state.histories));
     });
 
     return [state, dispatch]
