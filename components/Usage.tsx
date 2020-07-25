@@ -4,7 +4,8 @@ import Box from '@material-ui/core/Box'
 
 const styles = () => createStyles({});
 
-interface Props extends WithStyles<typeof styles> {}
+
+type Props = WithStyles<typeof styles>;
 
 
 const _Usage: React.FC<Props> = () => {

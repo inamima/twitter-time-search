@@ -1,5 +1,4 @@
 import * as lib from "../src/lib";
-import moment from "moment-timezone";
 
 
 describe.each([

@@ -1,9 +1,9 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { AppProps } from 'next/app'
 
-export default (props: any) => {
-    const { Component, pageProps } = props;
 
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
     React.useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
@@ -19,3 +19,5 @@ export default (props: any) => {
         </React.Fragment>
     );
 }
+
+export default App;

@@ -83,12 +83,13 @@ const reducer = (state: State, action: Actions): State => {
     switch (action.type) {
         case "setKeyword":
             return {...state, keyword: action.payload.keyword};
-        case "appendHistory":
-            let newHistories = [action.payload.history, ...state.histories];
+        case "appendHistory": {
+            const newHistories = [action.payload.history, ...state.histories];
             if (newHistories.length > MAX_HISTORY) {
                 newHistories.splice(-1, 1);
             }
             return {...state, histories: newHistories};
+        }
         case "deleteHistory":
             state.histories.splice(action.payload.index, 1);
             return {...state, histories: [...state.histories]};

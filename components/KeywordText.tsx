@@ -8,12 +8,13 @@ const styles = createStyles({
     }
 });
 
-interface Props extends WithStyles<typeof styles> {
-    onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-    value: string;
-}
 
-const _KeywordText: React.FC<Props> = ({ classes, onChange, value }) => {
+type Props = WithStyles<typeof styles>
+    & { onChange: (ev: React.ChangeEvent<{ value: unknown }>) => void }
+    & { value: string };
+
+
+const _KeywordText: React.FC<Props> = ({ classes, onChange, value }: Props) => {
     return (
         <TextField
             id="standard-name"

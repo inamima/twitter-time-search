@@ -1,7 +1,6 @@
+import React from 'react';
 import { Main } from "../components/Main";
 
-export default () => (
-    <>
-        <Main/>
-    </>
-)
+const App = (): JSX.Element => <Main/>;
+
+export default App;

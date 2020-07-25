@@ -13,12 +13,13 @@ const styles = createStyles({
 
 const zoneList = moment.tz.names();
 
-interface Props extends WithStyles<typeof styles> {
-    onChange: (ev: React.ChangeEvent<{ value: unknown }>) => void;
-    value: string;
-}
 
-const _TimeZone: React.FC<Props> = ({ classes, onChange, value }) => {
+type Props = WithStyles<typeof styles>
+    & { onChange: (ev: React.ChangeEvent<{ value: unknown }>) => void }
+    & { value: string };
+
+
+const _TimeZone: React.FC<Props> = ({ classes, onChange, value }: Props) => {
     return (
         <FormControl
             margin="normal"

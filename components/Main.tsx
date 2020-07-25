@@ -42,21 +42,19 @@ const styles = ({ breakpoints, palette, spacing }: Theme) => createStyles({
 });
 
 
-interface Props extends WithStyles<typeof styles> {
-}
+type Props = WithStyles<typeof styles>;
 
 
-const _Main: React.FC<Props> = (props) => {
+const _Main: React.FC<Props> = ({ classes }: Props) => {
     const timeZone = "Asia/Tokyo";
     const now = moment().tz(timeZone).toISOString();
     const oneHourLater = moment(now).tz(timeZone).add(1, "hour").toISOString();
     const [state, dispatch] = useReducerWithLocalStorage({
         histories: [], keyword: "", begin: now, end: oneHourLater, timeZone: timeZone
     });
-    const classes = props.classes;
 
-    const onKeywordChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch({ type: "setKeyword", payload: { keyword: ev.target.value }});
+    const onKeywordChange = (ev: React.ChangeEvent<{ value: unknown}>) => {
+        dispatch({ type: "setKeyword", payload: { keyword: ev.target.value as string}});
     };
 
     const onBeginChange = (date: Moment | null) => {

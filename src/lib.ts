@@ -13,7 +13,7 @@ export const datetimeToText = (date: string): string => {
 };
 
 
-export const searchAndOpen = (keyword: string, begin: string, end: string, timeZone: string) => {
+export const searchAndOpen = (keyword: string, begin: string, end: string, timeZone: string): void => {
     const keywordQuery = keyword;
     const beginQuery = `since:${datetimeToQuery(begin, timeZone)}`;
     const endQuery = `until:${datetimeToQuery(end, timeZone)}`;

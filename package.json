@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "eslint .",
     "test": "jest"
   },
   "dependencies": {
@@ -25,6 +26,10 @@
     "@types/moment-timezone": "^0.5.12",
     "@types/node": "^13.1.1",
     "@types/react": "^16.9.17",
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
+    "eslint": "^7.5.0",
+    "eslint-plugin-react": "^7.20.3",
     "jest": "^24.9.0",
     "ts-jest": "^24.3.0",
     "typescript": "^3.7.4"
