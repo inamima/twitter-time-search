@@ -24,7 +24,7 @@ const _TimeZone: React.FC<Props> = ({ classes, onChange, value }) => {
             margin="normal"
             className={classes.timeZoneField}
         >
-            <InputLabel htmlFor="timezone-input">TimeZone</InputLabel>
+            <InputLabel htmlFor="timezone-input">タイムゾーン</InputLabel>
             <Select
                 native
                 onChange={onChange}

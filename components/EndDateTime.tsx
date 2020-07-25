@@ -28,7 +28,7 @@ const _EndDateTime: React.FC<Props> = ({ classes, onChange, value}) => {
                 ampm={false}
                 className={classes.endField}
                 format={'YYYY/MM/DD HH:mm'}
-                label="End"
+                label="次の時間以前"
                 margin={"normal"}
                 onChange={onChange}
                 value={value}

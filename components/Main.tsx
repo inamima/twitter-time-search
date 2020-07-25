@@ -13,6 +13,7 @@ import moment, { Moment } from "moment-timezone";
 import Typography from '@material-ui/core/Typography';
 import { HistoryList } from './History';
 import { useReducerWithLocalStorage } from "../state";
+import { Usage } from './Usage';
 
 
 const styles = ({ breakpoints, palette, spacing }: Theme) => createStyles({
@@ -102,6 +103,7 @@ const _Main: React.FC<Props> = (props) => {
             <Typography variant={"h4"} component={"h1"}>
                 <a href="/" className={classes.title} >Twitter Time Search</a>
             </Typography>
+            <Usage/>
             <Paper className={classes.paper}>
                 <form method={"post"} onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
@@ -118,7 +120,7 @@ const _Main: React.FC<Props> = (props) => {
                             <TimeZone value={state.timeZone} onChange={onTimeZoneChange} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button type={"submit"} variant={"contained"} color={"primary"} onClick={onClick}>Search</Button>
+                            <Button type={"submit"} variant={"contained"} color={"primary"} onClick={onClick}>検索</Button>
                         </Grid>
                     </Grid>
                     <Grid container spacing={2}>

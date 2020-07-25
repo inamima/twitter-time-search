@@ -17,7 +17,7 @@ const _KeywordText: React.FC<Props> = ({ classes, onChange, value }) => {
     return (
         <TextField
             id="standard-name"
-            label="Keyword"
+            label="検索ワード"
             className={classes.keywordField}
             value={value}
             onChange={onChange}

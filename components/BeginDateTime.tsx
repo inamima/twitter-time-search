@@ -28,7 +28,7 @@ const _BeginDateTime: React.FC<Props> = ({ classes, onChange, value}) => {
                 ampm={false}
                 className={classes.beginField}
                 format={'YYYY/MM/DD HH:mm'}
-                label="Begin"
+                label="次の時間以降"
                 margin={"normal"}
                 onChange={onChange}
                 value={value}

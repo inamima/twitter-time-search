@@ -5,6 +5,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from '@material-ui/icons/Search';
 import { Actions } from "../state"
 import { datetimeToText, searchAndOpen } from "../lib";
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box'
 
 
 const styles = createStyles({
@@ -60,7 +62,18 @@ const _HistoryList: React.FC<Props> = ({ histories, dispatch }) => {
         );
     });
 
-    return <List>{Item}</List>;
+    if (Item.length === 0) {
+        return <></>;
+    } else {
+        return (
+            <>
+                <Box pt={3}>
+                    <Typography variant={"h5"} component={"h2"}>検索履歴</Typography>
+                </Box>
+                <List>{Item}</List>
+            </>
+        );
+    }
 };
 
 
