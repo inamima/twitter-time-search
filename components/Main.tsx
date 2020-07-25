@@ -81,10 +81,12 @@ const _Main: React.FC<Props> = (props) => {
 
     const onClick = (ev: React.MouseEvent<HTMLElement, MouseEvent>) => {
         search();
+        ev.preventDefault();
     };
 
     const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
         search();
+        ev.preventDefault();
     };
 
     const search = () => {
@@ -116,7 +118,7 @@ const _Main: React.FC<Props> = (props) => {
                             <TimeZone value={state.timeZone} onChange={onTimeZoneChange} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button type={"button"} variant={"contained"} color={"primary"} onClick={onClick}>Search</Button>
+                            <Button type={"submit"} variant={"contained"} color={"primary"} onClick={onClick}>Search</Button>
                         </Grid>
                     </Grid>
                     <Grid container spacing={2}>
