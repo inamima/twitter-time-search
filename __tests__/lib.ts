@@ -1,4 +1,4 @@
-import * as lib from "../lib";
+import * as lib from "../src/lib";
 import moment from "moment-timezone";
 
 

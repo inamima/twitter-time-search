@@ -3,8 +3,8 @@ import {createStyles, withStyles, WithStyles} from "@material-ui/core/styles";
 import {IconButton, List, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from '@material-ui/icons/Search';
-import { Actions } from "../state"
-import { datetimeToText, searchAndOpen } from "../lib";
+import { Actions } from "../src/state"
+import { datetimeToText, searchAndOpen } from "../src/lib";
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box'
 

@@ -8,11 +8,11 @@ import { BeginDateTime } from "./BeginDateTime";
 import { EndDateTime } from "./EndDateTime";
 import { KeywordText } from "./KeywordText";
 import { TimeZone } from "./TimeZone";
-import { searchAndOpen } from "../lib";
+import { searchAndOpen } from "../src/lib";
 import moment, { Moment } from "moment-timezone";
 import Typography from '@material-ui/core/Typography';
 import { HistoryList } from './History';
-import { useReducerWithLocalStorage } from "../state";
+import { useReducerWithLocalStorage } from "../src/state";
 import { Usage } from './Usage';
 
 
