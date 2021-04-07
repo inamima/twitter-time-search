@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.0.0
       - name: Set Node.js 12.x
-        uses: actions/setup-node@v1.3.0
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
       - name: Get NPM cache directory
@@ -38,7 +38,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.0.0
       - name: Set Node.js 12.x
-        uses: actions/setup-node@v1.3.0
+        uses: actions/setup-node@v2
         with:
           node-version: 12.x
       - name: Get NPM cache directory
