@@ -1,20 +1,11 @@
 import React from "react";
-import {createStyles, withStyles, WithStyles} from "@material-ui/core/styles";
-import {IconButton, List, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import SearchIcon from '@material-ui/icons/Search';
-import { Actions } from "../src/state"
-import { datetimeToText, searchAndOpen } from "../src/lib";
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box'
-
-
-const styles = createStyles({
-    timeZoneField: {
-        width: "100%",
-    }
-});
-
+import { IconButton, List, ListItem, ListItemSecondaryAction, ListItemText } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SearchIcon from '@mui/icons-material/Search';
+import { Actions } from "../hooks/useLocalStorageReducer"
+import { datetimeToText, searchAndOpen } from "../lib";
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box'
 
 type history = {
     keyword: string;
@@ -23,16 +14,14 @@ type history = {
     timeZone: string;
 };
 
-
-interface Props extends WithStyles<typeof styles> {
+interface Props {
     histories: Array<history>;
     dispatch: (h: Actions) => void;
 }
 
+export const HistoryList: React.FC<Props> = ({ histories, dispatch }) => {
 
-const _HistoryList: React.FC<Props> = ({ histories, dispatch }) => {
-
-    const useHistory = (h: history): void => {
+    const applyHistory = (h: history): void => {
         dispatch({ type: "setKeyword", payload: { keyword: h.keyword }});
         dispatch({ type: "setBegin", payload: { begin: h.begin }});
         dispatch({ type: "setEnd", payload: { end: h.end }});
@@ -48,7 +37,7 @@ const _HistoryList: React.FC<Props> = ({ histories, dispatch }) => {
 
     const Item = histories.map((h, index) => {
         return (
-            <ListItem button key={index} onClick={() => useHistory(h)}>
+            <ListItem button key={index} onClick={() => applyHistory(h)}>
                 <ListItemText primary={h.keyword} secondary={`${datetimeToText(h.begin)} - ${datetimeToText(h.end)}`}/>
                 <ListItemSecondaryAction>
                     <IconButton edge={'start'} onClick={() => searchHistory(h)}>
@@ -68,13 +57,10 @@ const _HistoryList: React.FC<Props> = ({ histories, dispatch }) => {
         return (
             <>
                 <Box pt={3}>
-                    <Typography variant={"h5"} component={"h2"}>検索履歴</Typography>
+                    <Typography variant="h5" component="h2">検索履歴</Typography>
                 </Box>
                 <List>{Item}</List>
             </>
         );
     }
 };
-
-
-export const HistoryList = withStyles(styles)(_HistoryList);

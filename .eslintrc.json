@@ -6,6 +6,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:react-hooks/recommended",
         "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
@@ -13,11 +15,13 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 11,
+        "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "plugins": [
         "react",
+        "react-hooks",
+        "react-refresh",
         "@typescript-eslint"
     ],
     "settings": {
@@ -26,5 +30,10 @@
         }
     },
     "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react-refresh/only-export-components": [
+            "warn",
+            { "allowConstantExport": true }
+        ]
     }
 }
