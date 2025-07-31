@@ -1,4 +1,4 @@
-# Twitter Time Search - Vite移行計画
+# X Time Search - Vite移行計画
 
 ## 概要
 Next.js 9.x + Material-UI v4 から Vite + React + MUI v5 への完全移行計画
@@ -95,7 +95,7 @@ Next.js 9.x + Material-UI v4 から Vite + React + MUI v5 への完全移行計�
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Twitter Time Search</title>
+    <title>X Time Search</title>
   </head>
   <body>
     <div id="root"></div>
@@ -305,7 +305,7 @@ npm run test     # テスト実行
 - [ ] 日付ピッカーの動作
 - [ ] タイムゾーン変換
 - [ ] ローカルストレージの永続化
-- [ ] Twitter検索URL生成
+- [ ] X検索URL生成
 - [ ] レスポンシブデザイン
 - [ ] 履歴機能
 

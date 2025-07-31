@@ -1,6 +1,6 @@
-# Twitter Time Search
+# X Time Search
 
-Twitterで年/月/日/時/分を指定した検索を行いやすくするツール。
+Xで年/月/日/時/分を指定した検索を行いやすくするツール。
 
 ## Build
 

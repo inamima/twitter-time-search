@@ -19,5 +19,5 @@ export const searchAndOpen = (keyword: string, begin: string, end: string, timeZ
     const endQuery = `until:${datetimeToQuery(end, timeZone)}`;
 
     const query = encodeURIComponent(`${keywordQuery} ${beginQuery} ${endQuery}`);
-    window.open("https://twitter.com/search?q=" + query);
+    window.open("https://x.com/search?q=" + query);
 };

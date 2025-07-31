@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Architecture
 
-This is a Next.js React application that generates Twitter search URLs with precise date/time filtering. The application is built with TypeScript and Material-UI v4.
+This is a Next.js React application that generates X search URLs with precise date/time filtering. The application is built with TypeScript and Material-UI v4.
 
 ### Core Architecture
 
@@ -35,8 +35,8 @@ This is a Next.js React application that generates Twitter search URLs with prec
 ### Core Business Logic
 
 - `src/lib.ts` - Core functions:
-  - `datetimeToQuery()` - Converts date/time to Twitter search format (YYYY-MM-DD_HH:mm:ss_TZ)
-  - `searchAndOpen()` - Constructs Twitter search URL and opens in new window
+  - `datetimeToQuery()` - Converts date/time to X search format (YYYY-MM-DD_HH:mm:ss_TZ)
+  - `searchAndOpen()` - Constructs X search URL and opens in new window
 - `src/state.ts` - State management with reducer pattern and localStorage persistence
 
 ### State Management Pattern

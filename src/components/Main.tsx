@@ -96,7 +96,7 @@ export const Main: React.FC = () => {
         <LocalizationProvider dateAdapter={AdapterMoment}>
             <Root>
                 <Typography variant="h4" component="h1">
-                    <TitleLink href="/">Twitter Time Search</TitleLink>
+                    <TitleLink href="/">X Time Search</TitleLink>
                 </Typography>
                 <Usage/>
                 <StyledPaper>
